@@ -1,51 +1,58 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Radio Globo</title>
 </head>
 <body>
-    <!-- Encabezado del formulario -->
     <h1>Formulario Radio Globo</h1>
     
     <!-- Formulario para ingresar datos del cliente -->
     <form id="radioForm">
-        <!-- Campo para el nombre del cliente -->
         <label for="nombreCliente">Nombre del cliente:</label>
         <input type="text" id="nombreCliente" name="nombreCliente" required><br>
 
-        <!-- Campo para seleccionar el paquete (1 o 2) -->
-        <label for="paqueteSeleccionado">Paquete contratado (1 o 2):</label>
-        <input type="number" id="paqueteSeleccionado" name="paqueteSeleccionado" required><br>
+        <label for="paqueteSeleccionado">Paquete contratado:</label>
+        <select id="paqueteSeleccionado" name="paqueteSeleccionado" required>
+            <option value="1">Paquete 1</option>
+            <option value="2">Paquete 2</option>
+        </select><br>
 
-        <!-- Campo para ingresar el tiempo contratado en meses -->
         <label for="mesesContratados">Tiempo contratado en meses:</label>
         <input type="number" id="mesesContratados" name="mesesContratados" required><br>
 
-        <!-- Botón para calcular -->
-        <button type="button" onclick="enviarFormulario()">Calcular</button>
+        <button type="button" onclick="calcularCosto()">Calcular</button>
     </form>
 
     <!-- Contenedor para mostrar los resultados -->
     <div id="resultados"></div>
 
-    <!-- Script JavaScript para manejar el formulario -->
     <script>
-        function enviarFormulario() {
+        function calcularCosto() {
             // Obtener valores ingresados por el usuario
             var nombreCliente = document.getElementById("nombreCliente").value;
             var paqueteSeleccionado = document.getElementById("paqueteSeleccionado").value;
-            var mesesContratados = document.getElementById("mesesContratados").value;
+            var mesesContratados = parseInt(document.getElementById("mesesContratados").value);
 
-            // Aquí deberías enviar estos datos al servidor (por ejemplo, usando AJAX) para ejecutar tu programa Java
-            // y luego recibir los resultados y mostrarlos en el div "resultados".
+            // Calcular costo inicial
+            var costoBase = (paqueteSeleccionado === "1") ? 250 : 175;
+            var costoInicial = costoBase * mesesContratados;
 
-            // Ejemplo de cómo podrías mostrar resultados (esto debe ser adaptado según tu implementación):
-            document.getElementById("resultados").innerHTML = "Nombre del cliente: " + nombreCliente +
+            // Calcular descuento
+            var descuento = (mesesContratados > 12) ? 0.2 * costoInicial : 0;
+
+            // Calcular total a pagar
+            var totalPagar = costoInicial - descuento;
+
+            // Mostrar resultados en el div "resultados"
+            document.getElementById("resultados").innerHTML = 
+                "Nombre del cliente: " + nombreCliente +
                 "<br>Paquete contratado: " + paqueteSeleccionado +
                 "<br>Tiempo contratado (meses): " + mesesContratados +
-                "<br>Total, inicial: $..."; // Aquí deberías incluir el resultado real de tu programa Java
+                "<br>Total, inicial: $" + costoInicial +
+                "<br>Descuento: $" + descuento +
+                "<br>Total, a pagar: $" + totalPagar;
         }
     </script>
 </body>
