@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class Modulo24 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 1. Obtener datos del usuario
+        System.out.print("Ingrese el nombre del cliente: ");
+        String nombreCliente = scanner.nextLine();
+
+        System.out.print("Seleccione el paquete (1 o 2): ");
+        int paqueteSeleccionado = scanner.nextInt();
+
+        System.out.print("Ingrese el tiempo contratado en meses: ");
+        int mesesContratados = scanner.nextInt();
+
+        // 2. Calcular costo inicial
+        double costoInicial = calcularCostoInicial(paqueteSeleccionado, mesesContratados);
+
+        // 3. Calcular descuento
+        double descuento = calcularDescuento(mesesContratados, costoInicial);
+
+        // 4. Calcular total a pagar
+        double totalPagar = costoInicial - descuento;
+
+        // 5. Mostrar resultados en pantalla
+        System.out.println("\n--- Resultados ---");
+        System.out.println("Nombre del cliente: " + nombreCliente);
+        System.out.println("Paquete contratado: " + paqueteSeleccionado);
+        System.out.println("Tiempo contratado (meses): " + mesesContratados);
+        System.out.println("Total, inicial: $" + costoInicial);
+        System.out.println("Descuento: $" + descuento);
+        System.out.println("Total, a pagar: $" + totalPagar);
+    }
+
+    private static double calcularCostoInicial(int paquete, int meses) {
+        double costoBase;
+
+        switch (paquete) {
+            case 1:
+                costoBase = 250;
+                break;
+            case 2:
+                costoBase = 175;
+                break;
+            default:
+                costoBase = 0;
+        }
+
+        return costoBase * meses;
+    }
+
+    private static double calcularDescuento(int meses, double costoInicial) {
+        if (meses > 12) {
+            return 0.2 * costoInicial; // 20% de descuento
+        } else {
+            return 0;
+        }
+    }
+}
