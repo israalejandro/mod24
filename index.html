@@ -1,60 +1,52 @@
-import java.util.Scanner;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Radio Globo</title>
+</head>
+<body>
+    <!-- Encabezado del formulario -->
+    <h1>Formulario Radio Globo</h1>
+    
+    <!-- Formulario para ingresar datos del cliente -->
+    <form id="radioForm">
+        <!-- Campo para el nombre del cliente -->
+        <label for="nombreCliente">Nombre del cliente:</label>
+        <input type="text" id="nombreCliente" name="nombreCliente" required><br>
 
-public class Modulo24 {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        <!-- Campo para seleccionar el paquete (1 o 2) -->
+        <label for="paqueteSeleccionado">Paquete contratado (1 o 2):</label>
+        <input type="number" id="paqueteSeleccionado" name="paqueteSeleccionado" required><br>
 
-        // 1. Obtener datos del usuario
-        System.out.print("Ingrese el nombre del cliente: ");
-        String nombreCliente = scanner.nextLine();
+        <!-- Campo para ingresar el tiempo contratado en meses -->
+        <label for="mesesContratados">Tiempo contratado en meses:</label>
+        <input type="number" id="mesesContratados" name="mesesContratados" required><br>
 
-        System.out.print("Seleccione el paquete (1 o 2): ");
-        int paqueteSeleccionado = scanner.nextInt();
+        <!-- Botón para calcular -->
+        <button type="button" onclick="enviarFormulario()">Calcular</button>
+    </form>
 
-        System.out.print("Ingrese el tiempo contratado en meses: ");
-        int mesesContratados = scanner.nextInt();
+    <!-- Contenedor para mostrar los resultados -->
+    <div id="resultados"></div>
 
-        // 2. Calcular costo inicial
-        double costoInicial = calcularCostoInicial(paqueteSeleccionado, mesesContratados);
+    <!-- Script JavaScript para manejar el formulario -->
+    <script>
+        function enviarFormulario() {
+            // Obtener valores ingresados por el usuario
+            var nombreCliente = document.getElementById("nombreCliente").value;
+            var paqueteSeleccionado = document.getElementById("paqueteSeleccionado").value;
+            var mesesContratados = document.getElementById("mesesContratados").value;
 
-        // 3. Calcular descuento
-        double descuento = calcularDescuento(mesesContratados, costoInicial);
+            // Aquí deberías enviar estos datos al servidor (por ejemplo, usando AJAX) para ejecutar tu programa Java
+            // y luego recibir los resultados y mostrarlos en el div "resultados".
 
-        // 4. Calcular total a pagar
-        double totalPagar = costoInicial - descuento;
-
-        // 5. Mostrar resultados en pantalla
-        System.out.println("\n--- Resultados ---");
-        System.out.println("Nombre del cliente: " + nombreCliente);
-        System.out.println("Paquete contratado: " + paqueteSeleccionado);
-        System.out.println("Tiempo contratado (meses): " + mesesContratados);
-        System.out.println("Total, inicial: $" + costoInicial);
-        System.out.println("Descuento: $" + descuento);
-        System.out.println("Total, a pagar: $" + totalPagar);
-    }
-
-    private static double calcularCostoInicial(int paquete, int meses) {
-        double costoBase;
-
-        switch (paquete) {
-            case 1:
-                costoBase = 250;
-                break;
-            case 2:
-                costoBase = 175;
-                break;
-            default:
-                costoBase = 0;
+            // Ejemplo de cómo podrías mostrar resultados (esto debe ser adaptado según tu implementación):
+            document.getElementById("resultados").innerHTML = "Nombre del cliente: " + nombreCliente +
+                "<br>Paquete contratado: " + paqueteSeleccionado +
+                "<br>Tiempo contratado (meses): " + mesesContratados +
+                "<br>Total, inicial: $..."; // Aquí deberías incluir el resultado real de tu programa Java
         }
-
-        return costoBase * meses;
-    }
-
-    private static double calcularDescuento(int meses, double costoInicial) {
-        if (meses > 12) {
-            return 0.2 * costoInicial; // 20% de descuento
-        } else {
-            return 0;
-        }
-    }
-}
+    </script>
+</body>
+</html>
